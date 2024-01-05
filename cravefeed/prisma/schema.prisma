@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Usera {
   id             Int        @id @default(autoincrement())
   email          String     @unique
   username       String     @unique
@@ -26,11 +23,8 @@ model User {
 
 model Post {
   id          Int           @id @default(autoincrement())
-  User        User          @relation(fields: [userId], references: [id])
+  Usera       Usera         @relation(fields: [userId], references: [id])
   userId      Int
-  // restaurantId    Int // Foreign key referencing Restaurant table
-  // dishId          Int // Foreign key referencing Dish table
-  // cityId          Int // Foreign key referencing City table
   restuarant  String
   dish        String
   city        String
@@ -40,68 +34,34 @@ model Post {
   likeCount   Int           @default(0)
   Likes       Like[]
   Comments    Comment[]
-  // Restaurant      Restaurant        @relation(fields: [restaurantId], references: [id])
-  // Dish            Dish              @relation(fields: [dishId], references: [id])
-  // City            City              @relation(fields: [cityId], references: [id])
   Leaderboard Leaderboard[]
 }
 
-// model Restaurant {
-//   id          Int     @id @default(autoincrement())
-//   name        String
-//   location    String
-//   // description String?
-//   // image       String?
-//   Posts       Post[]
-//   City        City?   @relation(fields: [cityId], references: [id])
-//   cityId      Int?
-// }
-//
-// model Dish {
-//   id          Int     @id @default(autoincrement())
-//   name        String
-//   // description String?
-//   // image       String?
-//   Posts       Post[]
-// }
-
-// City model representing cities in the system
-// model City {
-//   id              Int               @id @default(autoincrement())
-//   name            String
-//   country         String
-//   Restaurants     Restaurant[]
-//   Posts           Post[]
-//   CityLeaderboard CityLeaderboard[]
-// }
-
-// Follower model representing followers in the system
 model Follower {
-  id            Int  @id @default(autoincrement())
-  followerId    Int // Foreign key referencing User table
-  followingId   Int // Foreign key referencing User table
-  User          User @relation("follower", fields: [followerId], references: [id])
-  FollowingUser User @relation("following", fields: [followingId], references: [id])
+  id            Int   @id @default(autoincrement())
+  followerId    Int // Foreign key referencing Usera table
+  followingId   Int // Foreign key referencing Usera table
+  Usera         Usera @relation("follower", fields: [followerId], references: [id])
+  FollowingUser Usera @relation("following", fields: [followingId], references: [id])
 }
 
 model Like {
-  id     Int  @id @default(autoincrement())
-  userId Int // Foreign key referencing User table
+  id     Int   @id @default(autoincrement())
+  userId Int // Foreign key referencing Usera table
   postId Int // Foreign key referencing Post table
-  User   User @relation(fields: [userId], references: [id])
-  Post   Post @relation(fields: [postId], references: [id])
+  Usera  Usera @relation(fields: [userId], references: [id])
+  Post   Post  @relation(fields: [postId], references: [id])
 }
 
 model Comment {
   id     Int    @id @default(autoincrement())
-  userId Int // Foreign key referencing User table
+  userId Int // Foreign key referencing Usera table
   postId Int // Foreign key referencing Post table
   text   String
-  User   User   @relation(fields: [userId], references: [id])
+  Usera  Usera  @relation(fields: [userId], references: [id])
   Post   Post   @relation(fields: [postId], references: [id])
 }
 
-// Leaderboard model representing the overall leaderboard
 model Leaderboard {
   id     Int  @id @default(autoincrement())
   postId Int // Foreign key referencing Post table
