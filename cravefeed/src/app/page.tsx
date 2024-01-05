@@ -4,7 +4,7 @@ import { trpc } from './_trpc/client';
 import {z} from "zod";
 
 export default function IndexPage() {
-  const mutation = trpc.getLikedPosts.useQuery({
+  const mutation = trpc.getPosts.useQuery({
       userId: 6,
   });
   const signup = () => {
