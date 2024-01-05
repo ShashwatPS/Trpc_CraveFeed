@@ -4,10 +4,10 @@ import { trpc } from './_trpc/client';
 import {z} from "zod";
 
 export default function IndexPage() {
-  const mutation = trpc.getfollowers.useMutation();
+  const mutation = trpc.getfollowing.useMutation();
   const signup = () => {
     mutation.mutate({
-        Id: 6,
+        Id: 1,
     })
       const responseData = mutation.data;
       console.log("Mutation Data: ",responseData);
