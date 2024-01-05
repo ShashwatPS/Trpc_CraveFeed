@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next-auth/prisma-adapter": "^0.4.4-canary.81",
     "@prisma/client": "^5.7.1",
     "@trpc/client": "^10.45.0",
     "@trpc/react-query": "^10.45.0",
