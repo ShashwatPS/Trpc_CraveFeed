@@ -1,6 +1,15 @@
 import { initTRPC } from '@trpc/server';
+import { PrismaClient } from '@prisma/client';
 
-const t = initTRPC.create();
+const prisma = new PrismaClient()
+
+const t = initTRPC.context<{ prisma: {
+        Follower : typeof prisma.follower,
+        User : typeof prisma.user,
+        Post: typeof prisma.post,
+        Like: typeof prisma.like,
+        Comment: typeof prisma.comment,
+    } ; username?: string; }>().create();
 
 export const router = t.router;
 export const publicProcedure = t.procedure;
