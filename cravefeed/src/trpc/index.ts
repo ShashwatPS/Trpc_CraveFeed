@@ -106,7 +106,6 @@ export const appRouter = router({
                     followingId,
                 },
             });
-
             if (!existingRelation) {
                 throw new Error('Not following this user.');
             }
