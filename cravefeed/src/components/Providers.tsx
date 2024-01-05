@@ -1,3 +1,5 @@
+"use client";
+
 import {PropsWithChildren, useState} from "react";
 import {QueryClient} from "@tanstack/query-core";
 import {trpc} from "@/app/_trpc/client";

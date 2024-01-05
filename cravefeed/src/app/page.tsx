@@ -1,15 +1,17 @@
 "use client";
 
 import { trpc } from './_trpc/client';
+import {z} from "zod";
 
 export default function IndexPage() {
-  const mutation = trpc.user.signUp.useMutation();
+  const mutation = trpc.unfollow.useMutation();
   const signup = () => {
     mutation.mutate({
-      username: "Shaurya Singh" ,
-      email: "shashwat123student@gmail.com" ,
-      password : "spsnspssps",
+        followerId: 1 ,
+        followingId: 6,
     })
+      const responseData = mutation.data;
+      console.log("Mutation Data: ",responseData);
   }
   return(
       <div>
