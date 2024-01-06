@@ -2,25 +2,13 @@
 
 import { signIn, useSession } from 'next-auth/react'
 
-const LoginButton = () => {
-    const { data: session } = useSession()
-
-    return (
-        <div>
-            {!session ? (
-                <button onClick={() => signIn('github')}>Sign in with Google</button>
-            ) : (
-                <p>Welcome, {session.user.name}!</p>
-            )}
-        </div>
-    )
-}
-
 export default function Home() {
     return (
-        <div>
-            <h1>Welcome to My App</h1>
-            <LoginButton />
-        </div>
-    )
+        <button
+            onClick={() => signIn("github")}
+            className="flex items-center justify-center gap-2 rounded-lg bg-teal-500 px-8 py-3 text-center text-sm font-semibold text-white ring-teal-300 transition duration-100 hover:bg-teal-600 md:text-base"
+        >
+            Login
+        </button>
+    );
 }
