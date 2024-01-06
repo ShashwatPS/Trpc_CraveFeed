@@ -14,7 +14,7 @@ export const appRouter = router({
             let password = opts.input.password;
             let email = opts.input.email;
 
-            const newUser = await opts.ctx.prisma.User.create({
+            const newUser = await opts.ctx.prisma.Usera.create({
                 data : {
                     email ,
                     username ,
@@ -35,7 +35,7 @@ export const appRouter = router({
             let bio = opts.input.bio;
             let profilepicture = opts.input.profilepicture;
 
-            await opts.ctx.prisma.User.update({
+            await opts.ctx.prisma.Usera.update({
                 where: {
                     id: id,
                 },
@@ -55,8 +55,8 @@ export const appRouter = router({
 
             // Check if the users exist
             const [follower, following] = await Promise.all([
-                opts.ctx.prisma.User.findUnique({ where: { id: followerId } }),
-                opts.ctx.prisma.User.findUnique({ where: { id: followingId } }),
+                opts.ctx.prisma.Usera.findUnique({ where: { id: followerId } }),
+                opts.ctx.prisma.Usera.findUnique({ where: { id: followingId } }),
             ]);
 
             if (!follower || !following) {
@@ -93,8 +93,8 @@ export const appRouter = router({
             const { followerId, followingId } = opts.input;
 
             const [follower, following] = await Promise.all([
-                opts.ctx.prisma.User.findUnique({ where: { id: followerId } }),
-                opts.ctx.prisma.User.findUnique({ where: { id: followingId } }),
+                opts.ctx.prisma.Usera.findUnique({ where: { id: followerId } }),
+                opts.ctx.prisma.Usera.findUnique({ where: { id: followingId } }),
             ]);
 
             if (!follower || !following) {
@@ -216,7 +216,7 @@ export const appRouter = router({
         }))
         .mutation(async (opts) => {
             const { userId, postId, text } = opts.input;
-            const user = await opts.ctx.prisma.User.findUnique({ //Can be removed
+            const user = await opts.ctx.prisma.Usera.findUnique({ //Can be removed
                 where: { id: userId },
             });
             const post = await opts.ctx.prisma.Post.findUnique({ //Can be removed
@@ -241,7 +241,7 @@ export const appRouter = router({
         }))
         .mutation(async (opts) => {
             const { userId, postId } = opts.input;
-            const user = await opts.ctx.prisma.User.findUnique({  //Can be removed
+            const user = await opts.ctx.prisma.Usera.findUnique({  //Can be removed
                 where: { id: userId },
             });
             const post = await opts.ctx.prisma.Post.findUnique({ //Can be removed
@@ -282,7 +282,7 @@ export const appRouter = router({
             const { userId } = opts.input;
 
             // Retrieve the user
-            const user = await opts.ctx.prisma.User.findUnique({
+            const user = await opts.ctx.prisma.Usera.findUnique({
                 where: { id: userId },
                 include: { Likes: { include: { Post: true } } },
             });

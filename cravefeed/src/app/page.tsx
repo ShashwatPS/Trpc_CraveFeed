@@ -1,23 +1,36 @@
 "use client";
 
-import { trpc } from './_trpc/client';
-import {z} from "zod";
+import { signIn, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { authOptions } from '@/app/lib/auth';
 
-export default function IndexPage() {
-  const mutation = trpc.getPosts.useQuery({
-      userId: 6,
-  });
-  const signup = () => {
-        const responseData = mutation.data;
-        console.log("Mutation Data: ", responseData);
+export default function Home() {
+    const { data: session } = useSession();
+
+    async function handleSignIn() {
+        const result = await signIn('github', { callbackUrl: '/test' });
+        if (result?.error) {
+            console.error('Sign-in failed:', result.error);
+        } else {
+            console.log('Sign-in successful!');
+            console.log('Session details:', session);
+
+        }
     }
-    return(
-      <div>
-        <h1>Button for checking</h1>
-        <button onClick={signup} disabled={mutation.isLoading}>
-          Login
-        </button>
-        {mutation.error && <p>Something went wrong! {mutation.error.message}</p>}
-      </div>
-  )
+    return (
+        <div>
+            <button
+                onClick={handleSignIn}
+                className="flex items-center justify-center gap-2 rounded-lg bg-teal-500 px-8 py-3 text-center text-sm font-semibold text-white ring-teal-300 transition duration-100 hover:bg-teal-600 md:text-base"
+            >
+                Login
+            </button>
+
+            {session && (
+                <div>
+                    <p>Welcome, {session.user.name}!</p>
+                </div>
+            )}
+        </div>
+    );
 }
