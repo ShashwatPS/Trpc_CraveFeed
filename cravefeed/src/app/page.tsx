@@ -1,8 +1,6 @@
 "use client";
 
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { authOptions } from '@/app/lib/auth';
 
 export default function Home() {
     const { data: session } = useSession();
